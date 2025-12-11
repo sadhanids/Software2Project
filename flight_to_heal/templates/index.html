@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Flight To Heal: The Mission</title>
+
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='flight_to_heal.css') }}?v=1.4">
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet.awesome-markers@2.0.5/dist/leaflet.awesome-markers.css">
+</head>
+<body>
+
+<div id="game-container">
+    <h1>✈ Flight To Heal: The Mission ✈</h1>
+
+    <div id="start-screen">
+        <p>A patient requires urgent transportation. Your mission is to fly them from the starting location to the target hospital before their health drops too low or time runs out.</p>
+
+        <div class="player-input-group player-input-group-name">
+            <label for="player-name">Player Name:</label>
+            <input type="text" id="player-name" required placeholder="Enter your name">
+        </div>
+
+        <div class="player-input-group player-input-group-age">
+            <label for="player-age">Player Age:</label>
+            <input type="number" id="player-age" required min="10" max="99" placeholder="Age">
+        </div>
+        <button id="start-button">START NEW MISSION</button>
+    </div>
+
+    <div id="game-screen" style="display: none;">
+
+        <div id="main-game-layout">
+
+            <div id="status-panel">
+                <div class="status-item">
+                    <span class="status-label">Current Location:</span> <br>
+                    <span class="status-value" id="loc-name">---</span>
+                    (<span class="status-detail" id="loc-icao">---</span>)
+                </div>
+
+                <div class="status-item">
+                    <span class="status-label">Target:</span> <br>
+                    <span class="status-value" id="target-name">---</span>
+                    (<span class="status-detail" id="target-icao">---</span>)
+                </div>
+
+                <div class="status-item">
+                    <span class="status-label">Health:</span> <br>
+                    <span class="status-value" id="health-value">75.00</span>
+                    <span class="status-detail">HP</span>
+                </div>
+
+                <div class="status-item">
+                    <span class="status-label">Time Left:</span> <br>
+                    <span class="status-value" id="time-left">1440</span>
+                    <span class="status-detail">min</span>
+                </div>
+            </div>
+            <div id="game-content">
+                <div id="map" class="game-map"></div>
+
+                <div id="action-area">
+                    <h3>Available Actions:</h3>
+                    <div id="flight-options">
+                        <p>Select your next flight by clicking an airport marker on the map above.</p>
+                        </div>
+                </div>
+
+                <h3>Mission Log:</h3>
+                <div id="messages-log"></div>
+            </div>
+
+        </div>
+        </div>
+</div>
+
+<div id="risk-popup" class="overlay-popup">
+    <div class="popup-content">
+        <h2>🚨 Departure Risk Detected! ⚡⚡</h2>
+        <p id="risk-message"></p>
+        <p>The patient’s health has declined due to delay. Proceed with the flight or cancel to stabilize locally?</p>
+        <button id="proceed-button" class="popup-button popup-button-proceed">✈️ Proceed</button>
+        <button id="cancel-button" class="popup-button popup-button-cancel">❌ Cancel</button>
+    </div>
+</div>
+
+<div id="game-over-popup" class="overlay-popup game-over-overlay">
+    <div class="popup-content game-over-content">
+        <h2 id="game-over-title"></h2>
+        <p id="game-over-summary"></p>
+        <p>Would you like to fly another mission?</p>
+        <button id="play-again-button" class="popup-button popup-button-play-again">✈️ Play Again</button>
+    </div>
+</div>
+
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/leaflet.awesome-markers@2.0.5/dist/leaflet.awesome-markers.js"></script>
+<script src="{{ url_for('static', filename='flight_to_heal.js') }}"></script>
+</body>
+</html>
